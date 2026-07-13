@@ -26,7 +26,6 @@ describe ('OrangeHRM Login Feature' ,() => {
     cy.get('button[type="submit"]').click()
 
     cy.contains('Invalid credentials').should ('be.visible')
-
   })
 
   it('TC-LOGIN-004 Login menggunakan username dan password yang salah', () => {
@@ -95,6 +94,4 @@ describe ('OrangeHRM Login Feature' ,() => {
     cy.url().should('include', '/requestPasswordResetCode')
     cy.contains('Reset Password').should ('be.visible')
   })
-
-
 })
