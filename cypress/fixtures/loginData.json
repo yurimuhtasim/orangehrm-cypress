@@ -1,0 +1,21 @@
+{
+  "validUser": {
+    "username": "Admin",
+    "password": "admin123"
+  },
+
+  "wrongPassword": {
+    "username": "Admin",
+    "password": "Admin123"
+  },
+
+  "wrongUsername": {
+    "username": "adminn",
+    "password": "admin123"
+  },
+
+  "wrongCredential": {
+    "username": "Minda",
+    "password": "Minda123"
+  }
+}
