@@ -1,4 +1,4 @@
-class LoginPage {
+class LoginPages {
 
     usernameField = 'input[name="username"]'
     passwordField = 'input[name="password"]'
@@ -10,11 +10,11 @@ class LoginPage {
     }
 
     enterUsername(username) {
-        cy.get(this.usernameField).type(username)
+        cy.get(this.usernameField).clear().type(username)
     }
 
     enterPassword(password) {
-        cy.get(this.passwordField).type(password)
+        cy.get(this.passwordField).clear().type(password)
     }
 
     clickLogin() {
@@ -23,6 +23,12 @@ class LoginPage {
 
     clickForgotPassword() {
         cy.get(this.forgotPasswordLink).click()
+    }
+
+    login(username, password) {
+        this.enterUsername(username)
+        this.enterPassword(password)
+        this.clickLogin()
     }
 
     verifyDashboard() {
@@ -40,4 +46,4 @@ class LoginPage {
     }
 }
 
-export default LoginPage
+export default LoginPages

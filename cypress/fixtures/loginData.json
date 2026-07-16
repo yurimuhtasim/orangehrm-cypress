@@ -17,5 +17,20 @@
   "wrongCredential": {
     "username": "Minda",
     "password": "Minda123"
+  },
+
+  "lowercaseUsername": {
+    "username": "admin",
+    "password": "admin123"
+  },
+
+  "usernameWithSpace": {
+    "username": " Admin",
+    "password": "admin123"
+  },
+
+  "specialCharacterUsername": {
+    "username": "@Admin",
+    "password": "admin123"
   }
 }
