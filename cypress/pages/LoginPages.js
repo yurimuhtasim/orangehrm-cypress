@@ -5,9 +5,10 @@ class LoginPages {
     loginButton = 'button[type="submit"]'
     forgotPasswordLink = '.orangehrm-login-forgot-header'
 
-    visit() {
-        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    }
+   visit() {
+    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+    cy.get(this.usernameField, { timeout: 30000 }).should('be.visible')
+}
 
     enterUsername(username) {
         cy.get(this.usernameField).clear().type(username)

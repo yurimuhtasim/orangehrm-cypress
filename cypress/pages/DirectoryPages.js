@@ -2,6 +2,7 @@ class Directory{
 
     openDirectory (){
         cy.contains('Directory').click()
+        cy.contains(/Records? Found/, { timeout: 15000 }).should('be.visible')
     }
 
     inputEmployeeName(name) {
