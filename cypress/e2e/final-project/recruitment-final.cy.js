@@ -36,37 +36,29 @@ describe('Final Project Recruitment', ()=>{
 
     })
 
-    it('TC-REC-003 Input First Name', ()=>{
+it('TC-REC-003 Input First Name', ()=>{
+    recruitmentPages.openRecruitment()
+    recruitmentPages.clickAdd()
+    recruitmentPages.inputFirstName('Yuri')
+    cy.get('input[name="firstName"]').should('have.value', 'Yuri')
+})
 
-        recruitmentPages.openRecruitment()
 
-        recruitmentPages.clickAdd()
+it('TC-REC-004 Input Last Name', ()=>{
+    recruitmentPages.openRecruitment()
+    recruitmentPages.clickAdd()
+    recruitmentPages.inputLastName('Testing')
+    cy.get('input[name="lastName"]').should('have.value', 'Testing')
+})
 
-        recruitmentPages.inputFirstName('Yuri')
-
-    })
-
-    it('TC-REC-004 Input Last Name', ()=>{
-
-        recruitmentPages.openRecruitment()
-
-        recruitmentPages.clickAdd()
-
-        recruitmentPages.inputLastName('Testing')
-
-    })
-
-    it('TC-REC-005 Input First Name and Last Name', ()=>{
-
-        recruitmentPages.openRecruitment()
-
-        recruitmentPages.clickAdd()
-
-        recruitmentPages.inputFirstName('Yuri')
-
-        recruitmentPages.inputLastName('QA')
-
-    })
+it('TC-REC-005 Input First Name and Last Name', ()=>{
+    recruitmentPages.openRecruitment()
+    recruitmentPages.clickAdd()
+    recruitmentPages.inputFirstName('Yuri')
+    recruitmentPages.inputLastName('QA')
+    cy.get('input[name="firstName"]').should('have.value', 'Yuri')
+    cy.get('input[name="lastName"]').should('have.value', 'QA')
+})
 
     it('TC-REC-006 Click Save Without Data', ()=>{
 
@@ -80,19 +72,18 @@ describe('Final Project Recruitment', ()=>{
 
     })
 
-    it('TC-REC-007 Input Data and Save', ()=>{
+it('TC-REC-007 Input Data and Save', ()=>{
+    const uniqueId = Date.now()
 
-        recruitmentPages.openRecruitment()
+    recruitmentPages.openRecruitment()
+    recruitmentPages.clickAdd()
+    recruitmentPages.inputFirstName('Auto')
+    recruitmentPages.inputLastName(`Test${uniqueId}`)
+    recruitmentPages.inputEmail(`auto.test${uniqueId}@example.com`)
+    recruitmentPages.clickSave()
 
-        recruitmentPages.clickAdd()
-
-        recruitmentPages.inputFirstName('Yuri')
-
-        recruitmentPages.inputLastName('Testing')
-
-        recruitmentPages.clickSave()
-
-    })
+    cy.contains('Successfully Saved').should('be.visible')
+})
 
     it('TC-REC-008 Open Recruitment Again', ()=>{
 

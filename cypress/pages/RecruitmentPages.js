@@ -16,6 +16,13 @@ class Recruitment {
         cy.get('input[name="lastName"]').type(name)
     }
 
+    inputEmail(email){
+    cy.contains('label', 'Email')
+        .parents('.oxd-input-group')
+        .find('input')
+        .type(email)
+}
+
     clickSave(){
         cy.contains('Save').click()
     }
