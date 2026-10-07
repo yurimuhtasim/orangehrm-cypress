@@ -12,12 +12,25 @@ Proyek akhir **Bootcamp Quality Assurance Sanbercode (Batch 78)**: otomasi pengu
 - **API testing (`cypress/e2e/api`):** 12 test terhadap [reqres.in](https://reqres.in)
 - **Latihan bootcamp:** 28 test login (`login.cy.js`, `login-intercept.cy.js`, `pom/login-pom.cy.js`)
 
+## Hasil Eksekusi
+
+Hasil `npx cypress run` (Oktober 2026, satu kali run): **62 test di 7 spec, 62 lolos, 0 gagal.**
+
+| Kelompok | Test |
+|---|---|
+| Proyek akhir (`final-project`) | 22 |
+| API (`api`) | 12 |
+| Latihan bootcamp | 28 |
+
+Durasi berbeda antar-run (sekitar 5 sampai 8 menit) karena kecepatan situs demo tidak konsisten. Pada beberapa run sebelumnya sempat ada test yang gagal karena situs demo lambat.
+
 ## Teknologi
 
 - Cypress 16
 - JavaScript
 - Page Object Model (POM)
 - `cy.intercept` untuk menunggu dan memvalidasi request jaringan
+- `cy.env()` untuk membaca API key tanpa menyimpannya di repo
 - Fixture (`loginData.json`) untuk data uji login
 - Git dan GitHub
 
@@ -44,6 +57,7 @@ cypress/
 │   └── RecruitmentPages.js
 └── support/
 cypress.config.js
+cypress.env.example.json
 ```
 
 ## Cara Menjalankan
@@ -51,20 +65,44 @@ cypress.config.js
 Prasyarat: Node.js 22 atau lebih baru, dan Google Chrome (browser bawaan diatur di `cypress.config.js`).
 
 ```bash
+# Unduh proyek
+git clone https://github.com/yurimuhtasim/orangehrm-cypress.git
+cd orangehrm-cypress
+
 # Pasang dependency
 npm install
 
 # Mode interaktif
 npx cypress open
 
-# Jalankan semua spec tanpa tampilan
-npx cypress run
-
-# Jalankan satu spec saja
+# Jalankan satu spec saja (contoh)
 npx cypress run --spec cypress/e2e/final-project/directory-final.cy.js
 ```
 
+Perintah `npx cypress run` tanpa `--spec` menjalankan semua spec, **termasuk test API**. Test API butuh API key, jadi siapkan dulu sesuai bagian berikut. Tanpa key, hanya 12 test API yang gagal, sedangkan test lainnya tetap berjalan.
+
+### Menjalankan test API (reqres.in)
+
+Test API membutuhkan API key reqres.in. Key tidak disimpan di repo.
+
+1. Buat key gratis di reqres.in.
+2. Salin file contoh menjadi `cypress.env.json`, lalu isi key-mu:
+
+```bash
+cp cypress.env.example.json cypress.env.json
+```
+
+3. Jalankan:
+
+```bash
+npx cypress run --spec cypress/e2e/api/reqres-api.cy.js
+```
+
+`cypress.env.json` sudah masuk `.gitignore`, jadi tidak ikut ter-commit. Tanpa key, test gagal dengan pesan `REQRES_API_KEY tersedia`.
+
 ## Daftar Test Case
+
+ID pada bagian ini khusus untuk test otomasi dan terpisah dari ID pada dokumen test case manual (`TC-MAN-LOGIN-xxx`).
 
 ### Login (`final-project/login-final.cy.js`)
 
@@ -128,9 +166,10 @@ Catatan: TC-DIR-003 dan TC-DIR-004 sengaja dihapus karena tidak memiliki verifik
 - **Pencarian karyawan di Directory** memilih nama dari daftar saran (autocomplete), karena input yang tidak cocok dengan karyawan mana pun ditolak aplikasi dengan pesan "Invalid". TC-DIR-005 memverifikasi perilaku itu.
 - **TC-REC-007 menambah satu kandidat baru** di situs demo setiap kali dijalankan. Nama dan email dibuat unik dari timestamp supaya tidak bentrok.
 - **Setiap test memiliki assertion.** Test yang sebelumnya hanya menjalankan aksi tanpa verifikasi sudah dilengkapi atau dihapus.
+- **API key tidak disimpan di repo.** Key dibaca lewat `cy.env()` dari `cypress.env.json` (lokal, masuk `.gitignore`).
 
 ## Rencana Pengembangan
 
 - Mengganti `cy.wait(2000)` di `beforeEach` dengan menunggu elemen atau request yang spesifik.
 - Memindahkan kredensial login di `beforeEach` Directory dan Recruitment ke fixture, dan memakai `cy.session` supaya login tidak diulang di setiap test.
-- Menambah modul lain dan menjalankan test lewat CI.
+- Menambah modul lain dan menjalankan test lewat CI, dengan API key disimpan sebagai secret.
