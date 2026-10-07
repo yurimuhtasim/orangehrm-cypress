@@ -1,7 +1,7 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  allowCypressEnv: false,
+  defaultBrowser: 'chrome',
 
   e2e: {
     pageLoadTimeout: 120000,
