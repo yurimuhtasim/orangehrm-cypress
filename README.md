@@ -122,6 +122,18 @@ Catatan: TC-DIR-003 dan TC-DIR-004 sengaja dihapus karena tidak memiliki verifik
 | TC-API-011 | Register successful |
 | TC-API-012 | Login successful |
 
+## Hasil Eksekusi
+
+Hasil `npx cypress run` (Oktober 2026, satu kali run): **62 test di 7 spec, 62 lolos, 0 gagal.**
+
+| Kelompok | Test |
+|---|---|
+| Proyek akhir (`final-project`) | 22 |
+| API (`api`) | 12 |
+| Latihan bootcamp | 28 |
+
+Durasi berbeda antar-run (sekitar 5 sampai 8 menit) karena kecepatan situs demo tidak konsisten. Pada beberapa run sebelumnya sempat ada test yang gagal karena situs demo lambat.
+
 ## Catatan Pengujian
 
 - **Situs demo publik tidak selalu stabil.** Halaman bisa lambat dimuat dan datanya berubah karena dipakai banyak orang. Karena itu `pageLoadTimeout` diatur 120 detik dan `defaultCommandTimeout` 10 detik di `cypress.config.js`.
